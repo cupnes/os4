@@ -1,0 +1,8 @@
+*~
+*.o
+*.bin
+*.map
+Image
+boot/boot
+tools/build
+tools/system
