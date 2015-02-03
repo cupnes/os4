@@ -9,13 +9,21 @@ struct {
 	0x10
 };
 
+#define SCREEN_START	0xb8000
+#define COLUMNS	80
+#define ATTR	0x07
+#define NOW_Y	11
+#define NOW_X	0
+#define NOW_CHAR	'A'
+const unsigned char attr = ATTR;
 int main(void)
 {
-	volatile unsigned int foo;
+	unsigned long pos;
 
-	while (1) {
-		foo = 0xbeefcafe;
-	}
+	pos = SCREEN_START + ((NOW_Y * COLUMNS + NOW_X) << 1);
+	__asm__("movb attr,%%ah\n\t"
+			"movw %%ax,%1\n\t"
+			::"a" (NOW_CHAR), "m" (*(short *)pos));
 
 	return 0;
 }
